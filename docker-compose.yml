@@ -1,0 +1,8 @@
+version: '3.6'
+services:
+  flask:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    container_name: lingo_chatbot_api
+    image: lingo-chatbot-api:1.0.0
