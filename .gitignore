@@ -4,3 +4,4 @@ db.sqlite3-wal
 .vscode
 .idea
 .venv
+.docker

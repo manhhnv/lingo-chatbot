@@ -1,8 +1,10 @@
 version: '3.6'
 services:
-  flask:
-    build:
-      context: app
-      dockerfile: Dockerfile
-    container_name: lingo_chatbot_api
-    image: lingo-chatbot-api:1.0.0
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - ./.docker/data/db:/data/db
+    ports:
+      - 27017:27017
+    restart: always
