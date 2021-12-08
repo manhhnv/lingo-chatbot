@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/lingochatbot.iml" filepath="$PROJECT_DIR$/.idea/lingochatbot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lingo-chatbot.iml" filepath="$PROJECT_DIR$/.idea/lingo-chatbot.iml" />
     </modules>
   </component>
 </project>
