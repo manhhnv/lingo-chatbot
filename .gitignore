@@ -1,0 +1,5 @@
+.venv
+.docker
+*.db
+.*sqlite
+*.sqlite3
