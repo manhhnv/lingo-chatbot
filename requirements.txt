@@ -2,3 +2,4 @@ fastapi~=0.70.0
 uvicorn~=0.15.0
 pydantic~=1.8.2
 ChatterBot~=1.0.4
+starlette~=0.16.0
