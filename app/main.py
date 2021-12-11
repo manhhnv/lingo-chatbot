@@ -13,6 +13,7 @@ set_up()
 # Create appsSetting instance include (mongo_url, port)
 appSetting = AppSetting()
 
+
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
