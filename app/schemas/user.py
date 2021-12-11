@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 
 # Shared properties
@@ -13,3 +13,8 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+
+
+class UserSchema(BaseModel):
+    fullname: str = Field(..., max_length=100)
+    

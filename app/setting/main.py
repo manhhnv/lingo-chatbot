@@ -7,6 +7,5 @@ class AppSetting:
         self.mongo_url = os.environ.get('MONGO_URL')
         self.port = port
         self.client = motor.motor_asyncio.AsyncIOMotorClient(self.mongo_url)
-        self.db = self.client.tuvung
-        # self.client = MongoClient(self.mongo_url)
-        # self.db = self.client['tuvung']
+        self.db = self.client['tuvung']
+        self.secret_key = os.environ.get('SECRET_KEY')
