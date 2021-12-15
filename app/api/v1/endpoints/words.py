@@ -1,15 +1,21 @@
+from typing import List, Optional
 from fastapi import APIRouter, Path, Query
-from typing import Optional
+from fastapi.param_functions import Depends
+from pre_start.main import appSetting
+from jwt.jwt import JWTBearer
+from models.word import WordModel
 
 router = APIRouter()
 
 
-@router.get("/words/{word_id}")
-async def get_words(
-        word_id: int = Path(..., title="The ID of word to get"),
-        q: Optional[str] = Query(None, alias="word-query")):
-    return {
-        "_id": "id",
-        "content": "ball",
-        "meanings": ["qua bong", "trai bong"]
-    }
+@router.get("", dependencies=[Depends(JWTBearer())], response_model=List[WordModel])
+def get_words(page: int = Query(..., ge=1, description="Pagination")):
+    limit = 50
+    skip = page * 50
+    cursor = appSetting.database.words.find({}).skip(skip).limit(limit)
+    words = [word for word in cursor]
+    return words
+
+@router.get("/search", dependencies=[Depends(JWTBearer())], response_model=List[WordModel])
+def search_word(key: str = Query(...)):
+    pass
