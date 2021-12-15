@@ -21,6 +21,6 @@ def decode_jwt(token: str) -> dict:
     try:
         decoded_token = jwt.decode(
             token, appSetting.secret_key, algorithms=["HS256"])
-        return decoded_token if decoded_token["expires"] >= time.time() else None
+        return decoded_token if decoded_token["exp"] >= time.time() else None
     except:
         return {}

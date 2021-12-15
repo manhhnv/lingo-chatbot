@@ -28,3 +28,6 @@ mathparse~=0.1.2
 setuptools~=57.0.0
 functions~=0.7.0
 attrs~=21.2.0
+email-validator>=1.0.3
+passlib~=1.7.4
+jose~=1.0.0
