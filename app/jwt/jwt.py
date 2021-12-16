@@ -1,8 +1,15 @@
 from typing import Optional
 from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from pydantic import BaseModel, EmailStr
 
 from .handler import decode_jwt
+
+
+class JwtClaims(BaseModel):
+    email: EmailStr
+    is_supperuser: Optional[bool] = False
+    is_active: Optional[bool] = False
 
 
 class JWTBearer(HTTPBearer):
@@ -15,17 +22,16 @@ class JWTBearer(HTTPBearer):
             if not credentials.scheme == "Bearer":
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authentication scheme")
-            if not self.verify_jwt(credentials.credentials):
+            payload = self.verify_jwt(credentials.credentials)
+            if payload is None:
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token or expired token.")
+            request.user_ctx = payload
         return await super().__call__(request)
 
-    def verify_jwt(self, jwt_token: str) -> bool:
-        is_valid_token: bool = False
+    def verify_jwt(self, jwt_token: str) -> JwtClaims:
         try:
-            payload = decode_jwt(jwt_token)
+            payload: JwtClaims = decode_jwt(jwt_token)
         except:
             payload = None
-        if payload:
-            is_valid_token = True
-        return is_valid_token
+        return JwtClaims(**payload)

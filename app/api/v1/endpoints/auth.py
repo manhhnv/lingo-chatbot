@@ -1,5 +1,5 @@
 from typing import Dict
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Body, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.param_functions import Depends
 from schemas import CreateSuperuser, LoginResponse, UserBase
@@ -79,3 +79,9 @@ def login(body: UserBase):
 
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                         detail="Email or password is wrong")
+
+
+@router.put("/change-password", dependencies=[Depends(JWTBearer())])
+def change_password(request: Request, password: str = Body(...)):
+    print(request.user_ctx.dict())
+    pass
